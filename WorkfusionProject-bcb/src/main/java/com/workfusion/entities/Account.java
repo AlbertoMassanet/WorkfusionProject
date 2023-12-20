@@ -27,6 +27,7 @@ public class Account {
 	private boolean isUpdated;
 	
 	
+	
 	public Account() {
 		
 	}
