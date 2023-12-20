@@ -22,6 +22,10 @@ Una vez ejecutada la creacion de nuestro entorno de desarrollo usando maven nos 
 
 Desde el menú _File_ de nuestro Studio pulsaremos _Import_ y nos aparecerá una nueva ventana que nos permite seleccionar que tipo de importación vamos a hacer. Seleccionamos _Maven_ y dentro de el, _Existing Maven Projects_ y pulsamos **next**. Tras ello, nos aparecerá la selección de la carpeta donde esta nuestro proyecto (_Root Directory_). Pulsamos sobre **Browse...** y seleccionamos la carpeta raiz. Una vez hecho esto, en la caja de _Projects_ aparecerá nuestra carpeta seguida de su estructura (tal como se dijo en el paso anterior: -bcb, -package y -test) Seleccionamos las 4 opciones. y pulsamos **next**. El proceso demorará unos minutos y ya tendremos nuestro proyecto instalado para Studio.
 
+Una vez realizada la importación, deeremos modificar el archivo de contantes en com.workfusion.ultis.Constant: el Alias del Secrets Vault, la ruta del [ejecutable](https://acme-test.uipath.com/download-client) y la ruta del archivo Excel de output.
+
+También tendremos que realizar algunos cambios en Studio. Para poder usar Secrets Vault en modo local, Studio nos brinda la posibilidad de hacerlo usando un par clave/valor interno. para ello pulsaremos en el menú **Window** y seguidamente **Preferences**. Una vez la se nos abra la ventana, desplegaremos la opción _WorkFusion Studio_ y seleccionaremos _Secrets Vault_ y nos aparecerá una tabla con 3 campos: Alias, Key y Value. En el Alias usaremos vaultworkfusion o el que hayamos elegido en com.workfusion.ultis.Constant
+
 3. ### Tablas para Liquibase.
 
 La definición de las tablas está dentro del archivo _tables.xml_ que se encuentra dentro de la carpeta _*-package_. Esta es su ruta: _-package/src/main/resources/datastore/migrations/versioned/_. Esta es la estructura del archivo _tables.xml_:
