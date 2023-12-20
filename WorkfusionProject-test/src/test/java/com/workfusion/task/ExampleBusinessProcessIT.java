@@ -19,7 +19,7 @@ class ExampleBusinessProcessIT {
 
     private String projectVersion;
     private String bundlePath;
-
+    // Testing
     @BeforeEach
     void setUp() {
         ProjectProperties projectProperties = new ProjectProperties();
