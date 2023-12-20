@@ -24,7 +24,7 @@ Desde el menú _File_ de nuestro Studio pulsaremos _Import_ y nos aparecerá una
 
 3. ### Tablas para Liquibase.
 
-La definición de las tablas está dentro del archivo _tables.xml_ que se encuentra dentro de la carpeta _*-package_. Esta es su ruta: _-package/src/main/resources/database/migrations/versioned/_. Esta es la estructura del archivo _tables.xml_:
+La definición de las tablas está dentro del archivo _tables.xml_ que se encuentra dentro de la carpeta _*-package_. Esta es su ruta: _-package/src/main/resources/datastore/migrations/versioned/_. Esta es la estructura del archivo _tables.xml_:
 
 ```xml
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
