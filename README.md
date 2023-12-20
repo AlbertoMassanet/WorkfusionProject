@@ -208,5 +208,5 @@ o, en caso de tener una maquina virtual remota:
 
 Una vez finalizado con éxito tendremos listo nuestro proyecto para ejecutarse correctamente. Usaremos los archivos generados en la compilación que estarán en _C:\Users\<usuario>\workfusion-workspace\workfusionProject\workfusionProject-bcb\target\classes\configs\main\_ o en la ruta desde la que hemos instalado el proyecto _*\workfusionProject-bcb\target\classes\configs\main\_. Estos archivos son: performer-bot-task1.xml, performer-bot-task2.xml y performer-bot-task3.xml. Los copiamos a una carpeta visible por el Studio y los vamos ejecutando de forma secuencial pulsando sobre ellos con el botón derecho del ratón para que aparezca el menu contextual y seleccionamos _Run as..._ y luego **Bot Task** Y empezará a hacerse la magia :)
 
-Si se quiere ejecutar desde el Control Tower, deberemos realizar las conexiones pertinentes entre los procesos y modificar los repositorios de ambas tablas tal y como se comentó anteriormente.
+Si se quiere ejecutar desde el Control Tower, deberemos realizar las conexiones pertinentes entre los procesos en el flujo de trabajo del _Business Process_ y modificar los repositorios de ambas tablas tal y como se comentó anteriormente.
   
