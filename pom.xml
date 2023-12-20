@@ -121,8 +121,9 @@
         </pluginManagement>
     </build>
 
-<modules>  <module>WorkfusionProject-bcb</module>
-    <module>WorkfusionProject-package</module>
-    <module>WorkfusionProject-test</module>
-  </modules>
+	<modules>  
+		<module>WorkfusionProject-bcb</module>
+    	<module>WorkfusionProject-package</module>
+    	<module>WorkfusionProject-test</module>
+  	</modules>
 </project>
