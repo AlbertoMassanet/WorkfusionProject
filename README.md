@@ -204,7 +204,7 @@ o, en caso de tener una maquina virtual remota:
 
     mvn bundle:import -DskipTests -Premote
 
-
+`NOTA: Una vez realizada correctamente la ejecucion de Liquibase a traves de bundle:import debemos acceder a la base de datos de Workfusion usando alguna aplicacion de terceros como dbeaver para ver el nombre final que Liquibase ha dado a nuestras tablas. Copiamos sus nombres y modificamos las entidades de las tablas en Java tanto en @DatabaseTable como la variable estatica con el nombre correspondiente).`
 
 Una vez finalizado con éxito tendremos listo nuestro proyecto para ejecutarse correctamente. Usaremos los archivos generados en la compilación que estarán en _C:\Users\<usuario>\workfusion-workspace\workfusionProject\workfusionProject-bcb\target\classes\configs\main\_ o en la ruta desde la que hemos instalado el proyecto _*\workfusionProject-bcb\target\classes\configs\main\_. Estos archivos son: performer-bot-task1.xml, performer-bot-task2.xml y performer-bot-task3.xml. Los copiamos a una carpeta visible por el Studio y los vamos ejecutando de forma secuencial pulsando sobre ellos con el botón derecho del ratón para que aparezca el menu contextual y seleccionamos _Run as..._ y luego **Bot Task** Y empezará a hacerse la magia :)
 
