@@ -30,8 +30,8 @@ La definición de las tablas está dentro del archivo _tables.xml_ que se encuen
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog ../dbchangelog-3.6.xsd">
 
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0001">
-        <createTable tableName="uc_uc_wfProject_transaction_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0001">
+        <createTable tableName="uc_uc_wf_transaction_v0">
             <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -47,8 +47,8 @@ La definición de las tablas está dentro del archivo _tables.xml_ que se encuen
         </createTable>
     </changeSet>
 
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0002">
-        <createTable tableName="uc_uc_wfProject_stage_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0002">
+        <createTable tableName="uc_uc_wf_stage_v0">
             <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -60,8 +60,8 @@ La definición de las tablas está dentro del archivo _tables.xml_ que se encuen
 
     ...
 
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0005">
-        <createTable tableName="uc_uc_wfProject_ocr_cache_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0005">
+        <createTable tableName="uc_uc_wf_ocr_cache_v0">
             <column name="cache_key" type="NVARCHAR(256)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -88,8 +88,8 @@ Teniendo en cuenta estas pautas, compondremos nuestras tablas al final del archi
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog ../dbchangelog-3.6.xsd">
 
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0001">
-        <createTable tableName="uc_uc_wfProject_transaction_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0001">
+        <createTable tableName="uc_uc_wf_transaction_v0">
             <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -105,8 +105,8 @@ Teniendo en cuenta estas pautas, compondremos nuestras tablas al final del archi
         </createTable>
     </changeSet>
 
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0002">
-        <createTable tableName="uc_uc_wfProject_stage_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0002">
+        <createTable tableName="uc_uc_wf_stage_v0">
             <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -116,8 +116,8 @@ Teniendo en cuenta estas pautas, compondremos nuestras tablas al final del archi
         </createTable>
     </changeSet>
 
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0003">
-        <createTable tableName="uc_uc_wfProject_transaction_stage_log_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0003">
+        <createTable tableName="uc_uc_wf_transaction_stage_log_v0">
             <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -133,8 +133,8 @@ Teniendo en cuenta estas pautas, compondremos nuestras tablas al final del archi
         </createTable>
     </changeSet>
 
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0004">
-        <createTable tableName="uc_uc_wfProject_config_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0004">
+        <createTable tableName="uc_uc_wf_config_v0">
             <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -146,8 +146,8 @@ Teniendo en cuenta estas pautas, compondremos nuestras tablas al final del archi
         </createTable>
     </changeSet>
 
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0005">
-        <createTable tableName="uc_uc_wfProject_ocr_cache_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0005">
+        <createTable tableName="uc_uc_wf_ocr_cache_v0">
             <column name="cache_key" type="NVARCHAR(256)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -162,8 +162,8 @@ Teniendo en cuenta estas pautas, compondremos nuestras tablas al final del archi
     
     <!-- ADDED -->
     
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0006">
-        <createTable tableName="uc_uc_wfProject_clients_queue_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0006">
+        <createTable tableName="uc_uc_wf_clients_queue_v0">
             <column name="id_client" type="NVARCHAR(56)"/>
             <column name="wiid" type="NVARCHAR(56)"/>
             <column name="line_num" type="INT"/>
@@ -171,8 +171,8 @@ Teniendo en cuenta estas pautas, compondremos nuestras tablas al final del archi
         </createTable>
     </changeSet>
     
-    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0007">
-        <createTable tableName="uc_uc_wfProject_accounts_queue_v1_0">
+    <changeSet author="ODF2 archetype" id="uc_wf_v0_0007">
+        <createTable tableName="uc_uc_wf_accounts_queue_v0">
             <column name="id_client" type="NVARCHAR(56)"/>
             <column name="id_account" type="NVARCHAR(56)"/>
             <column name="amount" type="NVARCHAR(56)"/>
