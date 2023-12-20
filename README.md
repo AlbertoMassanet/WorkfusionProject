@@ -1,7 +1,7 @@
 # WorkfusionProject
 ### A RPA Workfusion example project 
 
-Este es un proyecto RPA de ejemplo utilizando el ecosistema de WorkFusion como base de desarrollo. Esta dividido en tres procesos que han de ejecutarse de forma secuencial: performerBotTask1, performerBotTask2... Hace uso de base de datos, Vaults Secret y de la enorme API que posee WorkFusion para automatizar procesos.
+Este es un proyecto RPA de ejemplo utilizando el ecosistema de WorkFusion como base de desarrollo. Esta dividido en tres procesos que han de ejecutarse de forma secuencial: performerBotTask1, performerBotTask2... Hace uso de base de datos, Secrets Vault y de la enorme API que posee WorkFusion para automatizar procesos.
 
 
                 
@@ -24,7 +24,189 @@ Desde el menú _File_ de nuestro Studio pulsaremos _Import_ y nos aparecerá una
 
 3. ### Tablas para Liquibase.
 
-4. ### Compilación y Ejecución del proyecto.
-                
+La definición de las tablas está dentro del archivo _tables.xml_ que se encuentra dentro de la carpeta _*-package_. Esta es su ruta: _-package/src/main/resources/database/migrations/versioned/_. Esta es la estructura del archivo _tables.xml_:
 
+```xml
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog ../dbchangelog-3.6.xsd">
+
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0001">
+        <createTable tableName="uc_uc_wfProject_transaction_v1_0">
+            <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="variation_id" type="BIGINT"/>
+            <column name="parent_uuid" type="NVARCHAR(36)"/>
+            <column name="start_time" type="datetime2"/>
+            <column name="end_time" type="datetime2"/>
+            <column name="status" type="NVARCHAR(36)"/>
+            <column name="error_status" type="NVARCHAR(36)"/>
+            <column name="start_bp_uuid" type="NVARCHAR(36)"/>
+            <column name="is_stp" type="int"/>
+            <column name="split_status" type="NVARCHAR(36)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0002">
+        <createTable tableName="uc_uc_wfProject_stage_v1_0">
+            <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="NVARCHAR(max)"/>
+            <column name="description" type="NVARCHAR(max)"/>
+            <column name="stage_order" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    ...
+
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0005">
+        <createTable tableName="uc_uc_wfProject_ocr_cache_v1_0">
+            <column name="cache_key" type="NVARCHAR(256)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="document_xml_link" type="NVARCHAR(2048)"/>
+            <column name="pages" type="INT"/>
+            <column name="meta_info_pages" type="NVARCHAR(max)"/>
+            <column name="meta_info_xml_url" type="NVARCHAR(2048)"/>
+            <column name="creation_time" type="NVARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
+```
+Contiene todas las tablas que el proyecto necesitará para su correcta ejecución. Se puede ver una serie de pautas:
+
++ Todas las tablas estan numeradas: Si observamos el changeSet de cada tabla vemos que su id termina en una numeración (0001, 0002, etc).
++ Los tipos definidos son los correspondientes a MS SQL Server.
++ El nombre de las tablas sigue unas pautas. Por ejemplo, _uc_uc_wfProject_ocr_cache_v1_0_ cuyo nombre real es _ocr_cache_ debe contener los caracteres correspondientes para que Liquibase lo cree correctamente.
+
+Teniendo en cuenta estas pautas, compondremos nuestras tablas al final del archivo XML pero antes de su cierre (_</databaseChangeLog>_). Por ejemplo:
+
+```xml
+
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog ../dbchangelog-3.6.xsd">
+
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0001">
+        <createTable tableName="uc_uc_wfProject_transaction_v1_0">
+            <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="variation_id" type="BIGINT"/>
+            <column name="parent_uuid" type="NVARCHAR(36)"/>
+            <column name="start_time" type="datetime2"/>
+            <column name="end_time" type="datetime2"/>
+            <column name="status" type="NVARCHAR(36)"/>
+            <column name="error_status" type="NVARCHAR(36)"/>
+            <column name="start_bp_uuid" type="NVARCHAR(36)"/>
+            <column name="is_stp" type="int"/>
+            <column name="split_status" type="NVARCHAR(36)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0002">
+        <createTable tableName="uc_uc_wfProject_stage_v1_0">
+            <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="NVARCHAR(max)"/>
+            <column name="description" type="NVARCHAR(max)"/>
+            <column name="stage_order" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0003">
+        <createTable tableName="uc_uc_wfProject_transaction_stage_log_v1_0">
+            <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="stage_id" type="NVARCHAR(36)">
+                <constraints foreignKeyName="fk_uc_uc_acmeProject_transaction_stage_log_v1_0_uc_uc_acmeProject_stage_v1_0" nullable="false" referencedColumnNames="uuid" referencedTableName="uc_uc_acmeProject_stage_v1_0"/>
+            </column>
+            <column name="transaction_uuid" type="NVARCHAR(36)">
+                <constraints foreignKeyName="uc_uc_acmeProject_transaction_stage_log_v1_0_uc_uc_acmeProject_transaction_v1_0" nullable="false" referencedColumnNames="uuid" referencedTableName="uc_uc_acmeProject_transaction_v1_0"/>
+            </column>
+            <column name="bp_uuid" type="NVARCHAR(36)"/>
+            <column name="timestamp" type="DATE"/>
+            <column name="type" type="NVARCHAR(36)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0004">
+        <createTable tableName="uc_uc_wfProject_config_v1_0">
+            <column defaultValueComputed="NEWID()" name="uuid" type="NVARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="variation_id" type="BIGINT"/>
+            <column name="name" type="NVARCHAR(450)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="NVARCHAR(max)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0005">
+        <createTable tableName="uc_uc_wfProject_ocr_cache_v1_0">
+            <column name="cache_key" type="NVARCHAR(256)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="document_xml_link" type="NVARCHAR(2048)"/>
+            <column name="pages" type="INT"/>
+            <column name="meta_info_pages" type="NVARCHAR(max)"/>
+            <column name="meta_info_xml_url" type="NVARCHAR(2048)"/>
+            <column name="creation_time" type="NVARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    
+    
+    <!-- ADDED -->
+    
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0006">
+        <createTable tableName="uc_uc_wfProject_clients_queue_v1_0">
+            <column name="id_client" type="NVARCHAR(56)"/>
+            <column name="wiid" type="NVARCHAR(56)"/>
+            <column name="line_num" type="INT"/>
+            <column name="page_num" type="INT"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet author="ODF2 archetype" id="uc_wfProject_v1_0_0007">
+        <createTable tableName="uc_uc_wfProject_accounts_queue_v1_0">
+            <column name="id_client" type="NVARCHAR(56)"/>
+            <column name="id_account" type="NVARCHAR(56)"/>
+            <column name="amount" type="NVARCHAR(56)"/>
+            <column name="status" type="NVARCHAR(56)"/>
+            <column name="is_Updated" type="BIT"/>
+        </createTable>
+    </changeSet>    
+
+</databaseChangeLog>
+
+```
+Como puede verse, las dos últimas tablas son las que vamos a usar en nuestro proyecto. Les hemos añadido la numeración (0006 y 0007), hemos modificado el nombre manteniendo la estructura base y hemos usado el tipado de MS SQL Server.
+
+4. ### Compilación y Ejecución del proyecto.
+
+Una vez realizados los cambios solo nos queda compilar para que Studio nos genere los bots para realizar las pruebas en local y subirlo al Control Tower de WorkFusion. Vamos a ello.
+
+`NOTA: A de tenerse en cuenta que las pruebas las vamos a realizar en modo local (sin usar Control Tower) por lo que, como se puede ver en los archivos de repositorios de ambas tablas, haremos uso de Jdbc como conexión. Para realizar las pruebas desde Control Tower, comentar el retorno de Jdbc y descomentar la linea de super(connectionSource, Client.class). `
+
+Para compliar nos posicionamos sobre la carpeta raiz y ejecutamos:
+
+  mvn clean install -DskipTests
+
+Una vez que se ha realizado la compilación con éxito, lo subiremos al Control Tower con:
+
+    mvn bundle:import -DskipTests
+
+o, en caso de tener una maquina virtual remota:
+
+    mvn bundle:import -DskipTests -Premote
+
+
+
+Una vez finalizado con éxito tendremos listo nuestro proyecto para ejecutarse correctamente. Usaremos los archivos generados en la compilación que estarán en _C:\Users\<usuario>\workfusion-workspace\workfusionProject\workfusionProject-bcb\target\classes\configs\main\_ o en la ruta desde la que hemos instalado el proyecto _*\workfusionProject-bcb\target\classes\configs\main\_. Estos archivos son: performer-bot-task1.xml, performer-bot-task2.xml y performer-bot-task3.xml. Los copiamos a una carpeta visible por el Studio y los vamos ejecutando de forma secuencial pulsando sobre ellos con el botón derecho del ratón para que aparezca el menu contextual y seleccionamos _Run as..._ y luego **Bot Task** Y empezará a hacerse la magia :)
+
+Si se quiere ejecutar desde el Control Tower, deberemos realizar las conexiones pertinentes entre los procesos y modificar los repositorios de ambas tablas tal y como se comentó anteriormente.
   
