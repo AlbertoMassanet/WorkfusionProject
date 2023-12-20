@@ -91,5 +91,6 @@
             <column name="is_Updated" type="BIT"/>
         </createTable>
     </changeSet>    
+    
 
 </databaseChangeLog>
